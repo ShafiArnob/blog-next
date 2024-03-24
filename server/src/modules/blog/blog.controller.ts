@@ -41,3 +41,21 @@ export const updateBlog = async (req: Request, res: Response) => {
       .json({ status: "Failed", message: "blog not updated" });
   }
 };
+
+export const showSingleBlog = async (req: Request, res: Response) => {
+  const params = req.params;
+
+  try {
+    const dbRes = await prisma.blog.findFirst({
+      where: {
+        id: params.id,
+      },
+    });
+    return res.status(200).json({ status: "success", data: dbRes });
+  } catch (e) {
+    console.log(e);
+    return res
+      .status(404)
+      .json({ status: "Failed", message: "blog not found" });
+  }
+};

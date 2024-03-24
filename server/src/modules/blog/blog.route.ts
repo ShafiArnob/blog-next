@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createBlog, updateBlog } from "./blog.controller";
+import { createBlog, showSingleBlog, updateBlog } from "./blog.controller";
 
 const blogRoutes = Router();
 
@@ -7,5 +7,6 @@ const blogRoutes = Router();
 
 blogRoutes.post("/", createBlog);
 blogRoutes.put("/", updateBlog);
+blogRoutes.get("/:id", showSingleBlog);
 
 export default blogRoutes;
