@@ -20,3 +20,24 @@ export const createBlog = async (req: Request, res: Response) => {
       .json({ status: "Failed", message: "blog not created" });
   }
 };
+
+export const updateBlog = async (req: Request, res: Response) => {
+  const body = req.body;
+  try {
+    const dbRes = await prisma.blog.update({
+      where: {
+        id: body.id, //blog id
+      },
+      data: {
+        title: body.title,
+        content: body.content,
+      },
+    });
+    return res.status(200).json({ status: "success", data: dbRes });
+  } catch (e) {
+    console.log(e);
+    return res
+      .status(404)
+      .json({ status: "Failed", message: "blog not updated" });
+  }
+};
